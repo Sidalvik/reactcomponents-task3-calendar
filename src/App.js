@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import Calendar from './components/Calendar/Calendar'
 
 function App() {
+  const now = new Date(2022, 4, 5);
+  // const month = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+
+  // return (
+  //   <div>
+  //     {month.map((item) => <Calendar date={new Date(2022, item, Math.round(Math.random() * 31))} key={item}/>)};
+  //   </div>
+  // )
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Calendar date={now} />;
     </div>
-  );
+  )
+
 }
 
 export default App;
