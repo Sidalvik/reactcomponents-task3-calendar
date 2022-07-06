@@ -7,26 +7,27 @@ function Calendar(props) {
     const {date} = props;
       
     const daysArray = [];
-    const weeksArray = [];
-    //  month: -1 - previous; 0 - current; 1 - next
     { 
       let previousMonthDays = (6 + Months.getFirstDay(date).getDay()) % 7;
-      let nextMonthDays = (7 - Months.getLastDay(date).getDay()) %7;
-
-      for (let [i, month, day]  = [-previousMonthDays, -1]; i < (Months.getLastDay(date).getDate() + nextMonthDays); i++) {
+      let nextMonthDays = (7 - Months.getLastDay(date).getDay()) % 7;
+      
+      //  month: -1 - previous; 0 - current; 1 - next
+      for (let [i, month, id]  = [-previousMonthDays, -1, 0]; i < (Months.getLastDay(date).getDate() + nextMonthDays); i++, id++) {
         if (i === 0 || i === Months.getLastDay(date).getDate()) {
           month++;
         }
-        day = new Date(date.getFullYear(), date.getMonth(), i + 1).getDate();
-        
-        daysArray.push({day , month});
+
+        daysArray.push({
+          day: new Date(date.getFullYear(), date.getMonth(), i + 1).getDate(),
+          month,
+          id});
       }
     }
-
-    for (let i = 0; i  < daysArray.length / 7; i++) {
-      weeksArray.push(i);
+    
+    const weeksArray = [];
+    for (let i = 0; i  < (daysArray.length / 7); i++) {
+      weeksArray.push(<Week date = {date} days = {daysArray} weekNumber = {i} key = {i}/>);
     }
-
     
     return (
         <div className="ui-datepicker">
@@ -65,12 +66,13 @@ function Calendar(props) {
             </tr>
           </thead>
           <tbody>
-            {weeksArray.map((item) =><Week date = {date} days = {daysArray} weekNumber = {item} key = {item}/>)}
+            {weeksArray}
           </tbody>
         </table>
       </div>
-    );
+    )
 }
+
 
 Calendar.propTypes = {
     date: PropTypes.instanceOf(Date).isRequired,

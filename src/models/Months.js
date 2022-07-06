@@ -31,8 +31,9 @@ class Months extends Date {
     }
 }
 
+
 Months.propTypes = {
     date: PropTypes.instanceOf(Date),
 }
 
-export default Months
+export default Months;
